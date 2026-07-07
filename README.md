@@ -102,7 +102,7 @@ Any OpenRouter model that supports tool calling works. Swap `*model*` and nothin
 
 Symbolic AI lost. But the thing LISP was actually built for, programs as data, computation that inspects and transforms itself, turned out to be a pretty good description of what an agent is. The models do the reasoning now. The loop around them is the part LISP was always best at.
 
-Longer version on the blog: [My Prof Was Right About LISP. He Was Just 25 Years Early.](https://thebeach.dev/posts/lisp-agent) *(update slug when published)*
+Longer version on the blog: [My Prof Was Right About LISP. He Was Just 25 Years Early.](https://thebeach.dev/posts/lisp-agent)
 
 ## Files
 

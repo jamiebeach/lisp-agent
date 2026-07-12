@@ -110,7 +110,14 @@ Longer version on the blog: [My Prof Was Right About LISP. He Was Just 25 Years 
 agent.lisp    the agent: loop, tool, memory (~100 lines)
 Dockerfile    SBCL + Quicklisp + deps, drops you at a REPL
 LICENSE       MIT
+dlv-agent/    the same agent, ported to DLV (Answer Set Programming)
 ```
+
+## Ports
+
+- [`dlv-agent/`](dlv-agent/) — the same agent rebuilt on [DLV](https://www.dlvsystem.it),
+  where the only tool is a live logic solver and the loop's one branch is an
+  answer set instead of a recursive call.
 
 ## License
 

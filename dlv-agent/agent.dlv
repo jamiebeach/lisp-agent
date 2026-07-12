@@ -1,0 +1,28 @@
+%%%% agent.dlv — a recursive agent loop, written as an answer set.
+%%%%
+%%%% The Lisp agent's loop is a recursive FUNCTION over a growing list of
+%%%% messages. In DLV there are no functions and no recursion-with-side-
+%%%% effects: there are only facts and the models they entail. So the loop's
+%%%% one decision — "did the model ask for tools, or did it answer?" — is not
+%%%% coded, it is DERIVED. The host writes the latest model turn as facts,
+%%%% runs this program, and reads the single answer set back out.
+%%%%
+%%%% Input facts (written by the host, one turn at a time):
+%%%%   tool_call(Id, Name).   % the model requested tool Name with call-id Id
+%%%%
+%%%% Output (the host filters for -filter=recurse,stop):
+%%%%   recurse.               % at least one tool was requested -> run and recur
+%%%%   stop.                  % no tools -> the model answered in words; halt
+%%%%   run(Id, Name).         % (also derived) the concrete tools to execute
+
+% Recursive case: the model asked for tools.
+recurse :- tool_call(_, _).
+
+% Base case: it answered in words. (Negation as failure = the base case.)
+stop :- not recurse.
+
+% The tools to run this turn are exactly the ones requested.
+run(Id, Name) :- tool_call(Id, Name).
+
+% The agent only knows one tool: a live DLV solver. Anything else is refused.
+unknown_tool(Id, Name) :- tool_call(Id, Name), Name != "dlv_solve".

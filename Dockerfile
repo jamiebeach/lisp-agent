@@ -17,7 +17,7 @@
 FROM debian:bookworm-slim
 
 RUN apt-get update \
- && apt-get install -y --no-install-recommends sbcl ca-certificates curl \
+ && apt-get install -y --no-install-recommends sbcl ca-certificates curl rlwrap \
  && rm -rf /var/lib/apt/lists/*
 
 # Quicklisp, installed non-interactively and wired into the SBCL init file.
@@ -32,11 +32,14 @@ RUN curl -sO https://beta.quicklisp.org/quicklisp.lisp \
 RUN sbcl --non-interactive --eval '(ql:quickload (list :dexador :shasht) :silent t)'
 
 WORKDIR /agent
+COPY completions.txt .
+COPY run.sh .
 COPY agent.lisp .
+RUN chmod +x run.sh
 
 # Keep memory.json inside a mountable directory so it survives the container.
 ENV AGENT_MEMORY=/agent/data/memory.json
 RUN mkdir -p /agent/data
 
 # Load the agent and drop you at a live REPL. This is the "login".
-ENTRYPOINT ["sbcl", "--load", "agent.lisp"]
+ENTRYPOINT ["/agent/run.sh"]

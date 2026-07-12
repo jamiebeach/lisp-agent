@@ -10,10 +10,10 @@
 %%%% Input facts (written by the host, one turn at a time):
 %%%%   tool_call(Id, Name).   % the model requested tool Name with call-id Id
 %%%%
-%%%% Output (filtered by the host with -filter=recurse,stop,run):
+%%%% Output (the host filters for -filter=recurse,stop):
 %%%%   recurse.               % at least one tool was requested -> run and recur
 %%%%   stop.                  % no tools -> the model answered in words; halt
-%%%%   run(Id, Name).         % the concrete tools to execute this turn
+%%%%   run(Id, Name).         % (also derived) the concrete tools to execute
 
 % Recursive case: the model asked for tools.
 recurse :- tool_call(_, _).

@@ -174,7 +174,9 @@ def dlv_says_recurse(message):
         'tool_call(%s, %s).\n' % (_atom(tc["id"]),
                                   _atom(tc["function"]["name"]))
         for tc in tool_calls)
-    answer = dlv(facts, filter_pred="recurse,stop", n=1)
+    with open(LOOP_PROGRAM) as fh:
+        rules = fh.read()
+    answer = dlv(rules, facts, filter_pred="recurse,stop", n=1)
     return "recurse" in answer
 
 

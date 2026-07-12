@@ -24,7 +24,7 @@ facts and read back its models. So `dlv-agent` is two files:
 
 - **`agent.dlv`** — the part that is genuinely DLV: the agent's loop, expressed
   declaratively.
-- **`host.py`** — ~90 lines of Python standard library that does nothing but
+- **`host.py`** — a small Python standard-library host that does nothing but
   move bytes: HTTP in, JSON out, and shelling to `dlv`. No `pip install`.
 
 Everything that *matters* is a DLV answer set. The Python just carries water.
@@ -148,7 +148,7 @@ as a model. The LLM does the reasoning; DLV makes the reasoning checkable.
 
 ```
 agent.dlv     the agent loop, declaratively (recurse vs. stop)
-host.py       the thin host: HTTP + JSON + memory + shelling to dlv (~90 lines)
+host.py       the thin host: HTTP + JSON + memory + shelling to dlv
 Dockerfile    DLV + Python, drops you at an interactive session
 LICENSE       MIT
 ```
